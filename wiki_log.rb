@@ -28,7 +28,7 @@ end
 
 
 def stripdot(txt)
-  CGI::unescape(txt).gsub(/[^A-Za-z0-9_]/, '_')
+  CGI::unescape(txt).gsub('"', "''")
 end
 
 
@@ -39,10 +39,10 @@ class WikiLoggerHandler < Mongrel::HttpHandler
       vars = Mongrel::HttpRequest.query_parse(request.params['QUERY_STRING'])
 
       if vars['single']
-        Line.new(:line => "#{stripdot vars['single']};").save
+        Line.new(:line => "\"#{stripdot vars['single']}\";").save
       else
         Line.new(
-          :line => "#{stripdot vars['from']} -> #{stripdot vars['to']};").save
+          :line => "\"#{stripdot vars['from']}\" -> \"#{stripdot vars['to']}\";").save
       end
     end
   end

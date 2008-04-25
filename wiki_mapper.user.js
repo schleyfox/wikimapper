@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name	WikiMapper
-// @namespace	http://ben.pixelmachine.org
+// @namespace	http://code.pixelmachine.org
 // @description	makes a graph of your Wikipedia Use
-// @include http://en.wikipedia.org/*
+// @include http://en.wikipedia.org/wiki/*
 // ==/UserScript==
 
 var title_re = /http:\/\/en.wikipedia.org\/wiki\/(.*)$/
