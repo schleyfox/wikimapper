@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'mongrel'
-require 'logger'
 require 'active_record'
 
 $db_name = 'wiki_dot.db'
@@ -54,9 +53,28 @@ class WikiMapDisplayHandler < Mongrel::HttpHandler
     response.start(200) do |head, out|
       head["Content-Type"] = "image/png"
       vars = Mongrel::HttpRequest.query_parse(request.params['QUERY_STRING'])
+
+      conds = []
+      begin
+        if vars['start'] and vars['end']
+          start = DateTime.parse(vars['start'])
+          endd = DateTime.parse(vars['end'])
+          conds = {:created_at => start..endd}
+        elsif vars['start']
+          start = DateTime.parse(vars['start'])
+          conds = ['created_at >= ?', start]
+        elsif vars['end']
+          endd = DateTime.parse(vars['end'])
+          conds = ['created_at <= ?', endd]
+        end
+      rescue
+        conds = []
+      end
+
       File.open($dot_fn, 'w') do |f|
         f.write((["digraph wiki_map {"] +
-        Line.find(:all).collect{|l| "  #{l.line}"} + ["}"]).join("\n"))
+        Line.find(:all, :conditions => conds).collect{|l| 
+        "  #{l.line}"} + ["}"]).join("\n"))
       end
       `dot -Tpng #{$dot_fn} -o #{$png_fn}`
       out.write File.read($png_fn)
