@@ -11,7 +11,6 @@ Usage:
 install wiki_mapper.user.js into greasemonkey
 ruby wiki_log.rb
 
-when you want output, go to http://localhost:9999/?exit=1
+when you want output, go to http://localhost:9999/show
 
-there will now be a file called wiki_map.dot and it can be abused in the usual
-ways.
+The program handles db creation and maintenance on its own
