@@ -8,7 +8,9 @@
 var title_re = /http:\/\/en.wikipedia.org\/wiki\/(.*)$/
 var referer
 if(document.referrer) {
-	referer = title_re.exec(document.referrer)[1]
+	tmp = title_re.exec(document.referrer)
+	if(tmp)
+		referer = tmp[1]
 }
 var current = title_re.exec(document.location)[1]
 
