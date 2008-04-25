@@ -1,0 +1,17 @@
+WikiMapper
+
+http://xkcd.com/214/
+
+This happens to us all.  WikiMapper is a simple hacktempt at providing insight
+into those "Three Hours of Fascinated Clicking."  It is curious how one can get
+from page to page on Wikipedia -- WikiMapper tries to explain it.
+
+Usage:
+
+install wiki_mapper.user.js into greasemonkey
+ruby wiki_log.rb
+
+when you want output, go to http://localhost:9999/?exit=1
+
+there will now be a file called wiki_map.dot and it can be abused in the usual
+ways.
